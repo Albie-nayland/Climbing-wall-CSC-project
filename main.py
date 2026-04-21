@@ -1,2 +1,3 @@
-#IVE DONE IT
-print("IVE DONE IT")
+import Tkinter
+
+Tkinter.TkinterUI()
