@@ -9,7 +9,13 @@ def TkinterUI():
     from main import PyGame
     global root, FilePath, Inventory
 
-    Inventory = 0
+    Inventory = {
+        "Hold1" : 0,
+        "Hold2" : 0,
+        "Hold3" : 0,
+        "Hold4" : 0,
+        "Hold5" : 0
+    }
 
     ScriptDir = os.path.dirname(os.path.abspath(__file__))
     FilePath = os.path.join(ScriptDir, "Inventory.json")
@@ -17,7 +23,10 @@ def TkinterUI():
     if os.path.exists(FilePath):
         try:
             with open(FilePath, 'r') as f:
-                Inventory = json.load(f)
+                Data = json.load(f)
+                for key in Inventory:
+                    if key in Data:
+                        Inventory[key] = Data[key]
         except:
             pass
                 
@@ -46,22 +55,44 @@ def InventoryWindow():
     InventoryText = tk.Text(InventoryWindow, height = 1, width = 30)
     InventoryText.pack()
 
-    AddButton = tk.Button(InventoryWindow, text = "Add To Inventory", command = AddInventory)
-    AddButton.pack()
+    Hold1Button = tk.Button(InventoryWindow, text = "Add To Hold 1", command = lambda: AddInventory(1))
+    Hold1Button.pack()
+
+    Hold2Button = tk.Button(InventoryWindow, text = "Add To Hold 2", command = lambda: AddInventory(2))
+    Hold2Button.pack()
+
+    Hold3Button = tk.Button(InventoryWindow, text = "Add To Hold 3", command = lambda: AddInventory(3))
+    Hold3Button.pack()
+
+    Hold4Button = tk.Button(InventoryWindow, text = "Add To Hold 4", command = lambda: AddInventory(4))
+    Hold4Button.pack()
+
+    Hold5Button = tk.Button(InventoryWindow, text = "Add To Hold 5", command = lambda: AddInventory(5))
+    Hold5Button.pack()
+
 
     ClearInventoryButton = tk.Button(InventoryWindow, text = "Clear Inventory", command = ClearInventory)
     ClearInventoryButton.pack()
 
+
 #Adds inventory to the inventory variable
-def AddInventory():
+def AddInventory(Hold):
     global InventoryText, Inventory, FilePath
-    Inventory = Inventory + int(InventoryText.get("1.0", "end-1c"))
+    Inventory[f"Hold{Hold}"] = InventoryText.get("1.0", "end-1c")
     SaveInventory()
+
 
 def ClearInventory():
     global Inventory
-    Inventory = 0
+    Inventory = {
+        "Hold1" : 0,
+        "Hold2" : 0,
+        "Hold3" : 0,
+        "Hold4" : 0,
+        "Hold5" : 0
+    }
     SaveInventory()
+
 
 def SaveInventory():
     global InventoryLabel, Inventory
