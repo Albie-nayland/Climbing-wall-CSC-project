@@ -70,7 +70,8 @@ def SaveInventory():
     InventoryLabel.config(text = "Inventory: " + str(Inventory))
     print(Inventory)
 
-TkinterUI()
+if __name__ == "__main__":
+    TkinterUI()
 
 
 
