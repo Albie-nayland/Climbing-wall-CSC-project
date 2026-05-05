@@ -17,21 +17,23 @@ offset = 0
 does_offset = 1
 mouse_offset = 0
 wall_spots = []
-holds_dict = {"small" : 10, "medium" : 10, "large" : 10}
+holds_dict = {"small" : 5, "medium" : 5, "large" : 5, "extra large" : 5}
+holds_home = {"small" : (50, 550), "medium" : (100, 550), "large" : (175, 550)}
 holds_full_dict = {}
 for i in holds_dict:
     for n in range(holds_dict[i]):
         if i == "small":
             holds_full_dict.update({len(holds_full_dict) : [50, 550, 15]})
-            
         elif i == "medium":
             holds_full_dict.update({len(holds_full_dict) : [100, 550, 25]})
         elif i == "large":
             holds_full_dict.update({len(holds_full_dict) : [175, 550, 45]})
+        elif i == "extra large":
+            holds_full_dict.update({len(holds_full_dict) : [250, 550, 65]})
 holds_used = {}
 holding_index = None
 
-y_hole_distance = 50
+y_hole_distance = 27
 x_hole_distance = 2*y_hole_distance
 
 mouse_down = False
@@ -89,8 +91,8 @@ while running:
         else:
             hold_offset = x_hole_distance/4
         if holds_full_dict[i][1] < 500:
-            coord = (holds_full_dict[i][0] - (holds_full_dict[i][0] % x_hole_distance) + hold_offset, (holds_full_dict[i][1] - (holds_full_dict[i][1] % y_hole_distance) + y_hole_distance/2))
-            py.draw.circle(screen, "blue", coord, holds_full_dict[i][2])
+            holds_full_dict[i][0], holds_full_dict[i][1] = (holds_full_dict[i][0] - (holds_full_dict[i][0] % x_hole_distance) + hold_offset, (holds_full_dict[i][1] - (holds_full_dict[i][1] % y_hole_distance) + y_hole_distance/2))
+            py.draw.circle(screen, "blue", (holds_full_dict[i][0], holds_full_dict[i][1]), holds_full_dict[i][2])
         else:
             py.draw.circle(screen, "blue", (holds_full_dict[i][0], holds_full_dict[i][1]), holds_full_dict[i][2])
 
