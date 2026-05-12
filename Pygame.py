@@ -12,8 +12,7 @@ wall_1_hold_info = {}
 
 dicts = {
     "num_holds" : num_holds,
-    "hold_info" : hold_info,
-    "hold_pos" : hold_pos
+    "hold_info" : hold_info
 }
 
 ScriptDir = os.path.dirname(os.path.abspath(__file__))
@@ -28,11 +27,7 @@ if os.path.exists(FilePath):
                         dicts[key].update({i:Data[key][i]})
         except:
             pass
-print(num_holds)
-for i in num_holds:
-    for j in range(num_holds[i]):
-        hold_pos.update({i + "_" + j:(hold_info[i][0], hold_info[i][1])})
-print(hold_pos)
+
 
 
 #Variables
