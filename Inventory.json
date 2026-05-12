@@ -1,7 +1,16 @@
 {
-    "Hold1": 0,
-    "Hold2": "6",
-    "Hold3": 0,
-    "Hold4": 0,
-    "Hold5": 0
+    "num_holds":{
+        "Hold1": 2,
+        "Hold2": 3,
+        "Hold3": 4,
+        "Hold4": 5,
+        "Hold5": 6
+    },
+    "hold_info":{
+        "Hold1": [50, 550, 5, "red", "crimp"],
+        "Hold2": [100, 550, 15, "pink", "jug"],
+        "Hold3": [150, 550, 10, "yellow", "pinch"],
+        "Hold4": [200, 550, 20, "blue", "sloper"],
+        "Hold5": [250, 550, 7, "red","crimp"]
+    }
 }
