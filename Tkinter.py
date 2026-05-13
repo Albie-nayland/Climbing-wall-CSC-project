@@ -56,6 +56,9 @@ def InventoryWindow():
     InventoryLabel = tk.Label(InventoryWindow, text = "Inventory: " + str(Inventory))
     InventoryLabel.pack()
 
+    AmountLabel = tk.Label(InventoryWindow, text = "Amount")
+    AmountLabel.pack()
+
     InventoryText = tk.Text(InventoryWindow, height = 1, width = 30)
     InventoryText.pack()
 
@@ -82,15 +85,14 @@ def InventoryWindow():
     AddInventoryButton = tk.Button(InventoryWindow, text = "Add Inventory", command = AddInventory)
     AddInventoryButton.pack()
 
+    RemoveInventoryButton = tk.Button(InventoryWindow, text = "Remove Inventory", command = RemoveInventory)
+    RemoveInventoryButton.pack()
+
     SaveInventoryButton = tk.Button(InventoryWindow, text = "Save Inventory", command = SaveInventory)
     SaveInventoryButton.pack()
 
     ClearInventoryButton = tk.Button(InventoryWindow, text = "Clear Inventory", command = ClearInventory)
     ClearInventoryButton.pack()
-
-
-    
-    
 
 
 def AddInventory():
@@ -101,18 +103,38 @@ def AddInventory():
     Size = SizeBox.get()
     Hold = HoldBox.get()
 
+    HoldData = [int(Size), Color.lower(), HoldType.lower()]
+
     if Hold == "New":
-        NewHoldNumber = 1
-        for i in hold_info:
-            NewHoldNumber = NewHoldNumber + 1
+        if not any(v[2:5] == HoldData for v in hold_info.values()):
+         NewHoldNumber = 1
 
-        hold_info["hold" + str(NewHoldNumber)] = [300, 550, Size, Color, HoldType]
-        num_holds["hold" + str(NewHoldNumber)] = [amount]
-        print (hold_info)
+         for i in hold_info:
+             NewHoldNumber = NewHoldNumber + 1
+
+         hold_info["hold" + str(NewHoldNumber)] = [50, 550, Size, Color, HoldType]
+         num_holds["hold" + str(NewHoldNumber)] = [amount]
+         print (hold_info)
+         print(num_holds)
+
+        else:
+         print("error")
+        
+    else:
+        num_holds[Hold] = int(num_holds[Hold]) + int(amount)
         print(num_holds)
-        
+    
 
-        
+def RemoveInventory():
+    global HoldBox
+    amount = InventoryText.get("1.0", "end-1c")
+    Hold = HoldBox.get()
+    if Hold in num_holds:
+        num_holds[Hold] = int(num_holds[Hold]) - int(amount)
+        if num_holds[Hold] <= 0:
+            del hold_info[Hold]
+            del num_holds[Hold]
+    print(num_holds)
 
 
 def ClearInventory():
@@ -132,8 +154,10 @@ def SaveInventory():
     with open(FilePath, 'w') as f:
         json.dump(Inventory, f, indent = 4)
         json.dump(hold_info, f, indent = 4 )
+
     InventoryLabel.config(text = "Inventory: " + str(Inventory))
     print(Inventory)
+
 
 if __name__ == "__main__":
     TkinterUI()
