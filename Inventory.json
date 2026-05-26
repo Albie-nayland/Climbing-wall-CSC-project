@@ -1,16 +1,188 @@
 {
-    "num_holds":{
-        "Hold1": 2,
-        "Hold2": 3,
-        "Hold3": 4,
-        "Hold4": 5,
-        "Hold5": 6
-    },
-    "hold_info":{
-        "Hold1": [50, 550, 5, "red", "crimp"],
-        "Hold2": [100, 550, 15, "pink", "jug"],
-        "Hold3": [150, 550, 10, "yellow", "pinch"],
-        "Hold4": [200, 550, 20, "blue", "sloper"],
-        "Hold5": [250, 550, 7, "red","crimp"]
-    }
+  "num_holds": {
+    "hold1": 2,
+    "hold2": 3,
+    "hold3": 4,
+    "hold4": 5,
+    "hold5": 6
+  },
+  "hold_info": {
+    "red_crimp_0": [
+      50,
+      550,
+      5,
+      "red",
+      "crimp"
+    ],
+    "pink_jug_0": [
+      100,
+      550,
+      15,
+      "pink",
+      "jug"
+    ],
+    "yellow_pinch_0": [
+      150,
+      550,
+      10,
+      "yellow",
+      "pinch"
+    ],
+    "blue_sloper_0": [
+      200,
+      550,
+      20,
+      "blue",
+      "sloper"
+    ],
+    "red_crimp_1": [
+      250,
+      550,
+      7,
+      "red",
+      "crimp"
+    ]
+  },
+  "Inventory": {
+    "red_crimp_0_0": [
+      50,
+      550,
+      5,
+      "red",
+      "crimp"
+    ],
+    "red_crimp_0_1": [
+      50,
+      550,
+      5,
+      "red",
+      "crimp"
+    ],
+    "pink_jug_0_0": [
+      100,
+      550,
+      15,
+      "pink",
+      "jug"
+    ],
+    "pink_jug_0_1": [
+      100,
+      550,
+      15,
+      "pink",
+      "jug"
+    ],
+    "pink_jug_0_2": [
+      100,
+      550,
+      15,
+      "pink",
+      "jug"
+    ],
+    "yellow_pinch_0_0": [
+      150,
+      550,
+      10,
+      "yellow",
+      "pinch"
+    ],
+    "yellow_pinch_0_1": [
+      150,
+      550,
+      10,
+      "yellow",
+      "pinch"
+    ],
+    "yellow_pinch_0_2": [
+      150,
+      550,
+      10,
+      "yellow",
+      "pinch"
+    ],
+    "yellow_pinch_0_3": [
+      150,
+      550,
+      10,
+      "yellow",
+      "pinch"
+    ],
+    "blue_sloper_0_0": [
+      312.5,
+      287.5,
+      20,
+      "blue",
+      "sloper"
+    ],
+    "blue_sloper_0_1": [
+      312.5,
+      237.5,
+      20,
+      "blue",
+      "sloper"
+    ],
+    "blue_sloper_0_2": [
+      200,
+      550,
+      20,
+      "blue",
+      "sloper"
+    ],
+    "blue_sloper_0_3": [
+      287.5,
+      212.5,
+      20,
+      "blue",
+      "sloper"
+    ],
+    "blue_sloper_0_4": [
+      200,
+      550,
+      20,
+      "blue",
+      "sloper"
+    ],
+    "red_crimp_1_0": [
+      250,
+      550,
+      7,
+      "red",
+      "crimp"
+    ],
+    "red_crimp_1_1": [
+      250,
+      550,
+      7,
+      "red",
+      "crimp"
+    ],
+    "red_crimp_1_2": [
+      250,
+      550,
+      7,
+      "red",
+      "crimp"
+    ],
+    "red_crimp_1_3": [
+      250,
+      550,
+      7,
+      "red",
+      "crimp"
+    ],
+    "red_crimp_1_4": [
+      250,
+      550,
+      7,
+      "red",
+      "crimp"
+    ],
+    "red_crimp_1_5": [
+      312.5,
+      312.5,
+      7,
+      "red",
+      "crimp"
+    ]
+  }
 }
