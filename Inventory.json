@@ -1,10 +1,10 @@
 {
   "num_holds": {
-    "hold1": 2,
-    "hold2": 3,
-    "hold3": 4,
-    "hold4": 5,
-    "hold5": 6
+    "red_crimp_0": -4,
+    "pink_jug_0": -19,
+    "yellow_pinch_0": 0,
+    "blue_sloper_0": -48,
+    "red_crimp_1": 5
   },
   "hold_info": {
     "red_crimp_0": [
@@ -49,140 +49,160 @@
       550,
       5,
       "red",
-      "crimp"
+      "crimp",
+      0
     ],
     "red_crimp_0_1": [
       50,
       550,
       5,
       "red",
-      "crimp"
+      "crimp",
+      0
     ],
     "pink_jug_0_0": [
       100,
       550,
       15,
       "pink",
-      "jug"
+      "jug",
+      0
     ],
     "pink_jug_0_1": [
       100,
       550,
       15,
       "pink",
-      "jug"
+      "jug",
+      0
     ],
     "pink_jug_0_2": [
       100,
       550,
       15,
       "pink",
-      "jug"
+      "jug",
+      0
     ],
     "yellow_pinch_0_0": [
       150,
       550,
       10,
       "yellow",
-      "pinch"
+      "pinch",
+      0
     ],
     "yellow_pinch_0_1": [
       150,
       550,
       10,
       "yellow",
-      "pinch"
+      "pinch",
+      0
     ],
     "yellow_pinch_0_2": [
       150,
       550,
       10,
       "yellow",
-      "pinch"
+      "pinch",
+      0
     ],
     "yellow_pinch_0_3": [
       150,
       550,
       10,
       "yellow",
-      "pinch"
+      "pinch",
+      0
     ],
     "blue_sloper_0_0": [
-      312.5,
-      287.5,
+      200,
+      550,
       20,
       "blue",
-      "sloper"
+      "sloper",
+      0
     ],
     "blue_sloper_0_1": [
-      312.5,
-      237.5,
+      200,
+      550,
       20,
       "blue",
-      "sloper"
+      "sloper",
+      0
     ],
     "blue_sloper_0_2": [
       200,
       550,
       20,
       "blue",
-      "sloper"
+      "sloper",
+      0
     ],
     "blue_sloper_0_3": [
-      287.5,
-      212.5,
+      200,
+      550,
       20,
       "blue",
-      "sloper"
+      "sloper",
+      0
     ],
     "blue_sloper_0_4": [
       200,
       550,
       20,
       "blue",
-      "sloper"
+      "sloper",
+      0
     ],
     "red_crimp_1_0": [
       250,
       550,
       7,
       "red",
-      "crimp"
+      "crimp",
+      0
     ],
     "red_crimp_1_1": [
       250,
       550,
       7,
       "red",
-      "crimp"
+      "crimp",
+      0
     ],
     "red_crimp_1_2": [
       250,
       550,
       7,
       "red",
-      "crimp"
+      "crimp",
+      0
     ],
     "red_crimp_1_3": [
       250,
       550,
       7,
       "red",
-      "crimp"
+      "crimp",
+      0
     ],
     "red_crimp_1_4": [
       250,
       550,
       7,
       "red",
-      "crimp"
+      "crimp",
+      0
     ],
     "red_crimp_1_5": [
-      312.5,
-      312.5,
+      250,
+      550,
       7,
       "red",
-      "crimp"
+      "crimp",
+      0
     ]
   }
 }
