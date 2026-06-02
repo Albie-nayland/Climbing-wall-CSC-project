@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 import os
 import json
 
@@ -7,15 +8,12 @@ print("Looking for file in:", os.getcwd())
 #Opens the main tkinter window and creates all the button text etc.
 def TkinterUI():
     from main import PyGame
-    global root, FilePath, Inventory
+    global root, FilePath, Inventory, hold_info, num_holds
 
-    Inventory = {
-        "Hold1" : 0,
-        "Hold2" : 0,
-        "Hold3" : 0,
-        "Hold4" : 0,
-        "Hold5" : 0
-    }
+    Inventory = {}
+
+    num_holds = {}
+    hold_info = {}
 
     ScriptDir = os.path.dirname(os.path.abspath(__file__))
     FilePath = os.path.join(ScriptDir, "Inventory.json")
@@ -24,12 +22,14 @@ def TkinterUI():
         try:
             with open(FilePath, 'r') as f:
                 Data = json.load(f)
-                for key in Inventory:
-                    if key in Data:
-                        Inventory[key] = Data[key]
+                if "num_holds" in Data:
+                    num_holds = Data["num_holds"]  
+                if "hold_info" in Data:
+                    hold_info = Data["hold_info"]              
         except:
             pass
-                
+
+    Inventory = num_holds
 
     root = tk.Tk()
     root.geometry("500x500")
@@ -39,47 +39,102 @@ def TkinterUI():
 
     VisualizeButton = tk.Button(text = "Visualize", command = PyGame)
     VisualizeButton.pack()
-    print(Inventory)
-
+    print(num_holds)
+    print(hold_info)
     root.mainloop()
 
 #Opens the inventory window
 def InventoryWindow():
-    global root, InventoryText, Inventory, InventoryLabel
+    global root, InventoryText, Inventory, InventoryLabel, hold_info, ColorText, HoldTypeBox, SizeBox, HoldBox
     InventoryWindow = tk.Toplevel(root)
     InventoryWindow.geometry("500x500")
+    HoldTypes = ["Crimp", "Jug", "Pinch", "Slooper"]
+    Sizes = ["1", "2", "3", "4", "5", "10", "15", "20"]
+    Holds = ["New",]
+
 
     InventoryLabel = tk.Label(InventoryWindow, text = "Inventory: " + str(Inventory))
     InventoryLabel.pack()
 
+    AmountLabel = tk.Label(InventoryWindow, text = "Amount")
+    AmountLabel.pack()
+
     InventoryText = tk.Text(InventoryWindow, height = 1, width = 30)
     InventoryText.pack()
 
-    Hold1Button = tk.Button(InventoryWindow, text = "Add To Hold 1", command = lambda: AddInventory(1))
-    Hold1Button.pack()
+    ColorLabel = tk.Label(InventoryWindow, text = "Color")
+    ColorLabel.pack()
 
-    Hold2Button = tk.Button(InventoryWindow, text = "Add To Hold 2", command = lambda: AddInventory(2))
-    Hold2Button.pack()
+    ColorText = tk.Text(InventoryWindow, height = 1, width = 30)
+    ColorText.pack()
 
-    Hold3Button = tk.Button(InventoryWindow, text = "Add To Hold 3", command = lambda: AddInventory(3))
-    Hold3Button.pack()
+    HoldTypeBox = ttk.Combobox(InventoryWindow, values = HoldTypes)
+    HoldTypeBox.pack()
 
-    Hold4Button = tk.Button(InventoryWindow, text = "Add To Hold 4", command = lambda: AddInventory(4))
-    Hold4Button.pack()
+    SizeBox = ttk.Combobox(InventoryWindow, values = Sizes)
+    SizeBox.pack()
 
-    Hold5Button = tk.Button(InventoryWindow, text = "Add To Hold 5", command = lambda: AddInventory(5))
-    Hold5Button.pack()
+    for i in Inventory:
+        Holds.append(i)
+    print(Holds)
 
+
+    HoldBox = ttk.Combobox(InventoryWindow, values = Holds)
+    HoldBox.pack()
+    
+    AddInventoryButton = tk.Button(InventoryWindow, text = "Add Inventory", command = AddInventory)
+    AddInventoryButton.pack()
+
+    RemoveInventoryButton = tk.Button(InventoryWindow, text = "Remove Inventory", command = RemoveInventory)
+    RemoveInventoryButton.pack()
+
+    SaveInventoryButton = tk.Button(InventoryWindow, text = "Save Inventory", command = SaveInventory)
+    SaveInventoryButton.pack()
 
     ClearInventoryButton = tk.Button(InventoryWindow, text = "Clear Inventory", command = ClearInventory)
     ClearInventoryButton.pack()
 
 
-#Adds inventory to the inventory variable
-def AddInventory(Hold):
-    global InventoryText, Inventory, FilePath
-    Inventory[f"Hold{Hold}"] = InventoryText.get("1.0", "end-1c")
-    SaveInventory()
+def AddInventory():
+    global Inventory, InventoryText, ColorText, HoldTypeBox, SizeBox, HoldBox, num_holds
+    amount = InventoryText.get("1.0", "end-1c")
+    Color = ColorText.get("1.0", "end-1c")
+    HoldType = HoldTypeBox.get()
+    Size = SizeBox.get()
+    Hold = HoldBox.get()
+
+    HoldData = [int(Size), Color.lower(), HoldType.lower()]
+
+    if Hold == "New":
+        if not any(v[2:5] == HoldData for v in hold_info.values()):
+         NewHoldNumber = 1
+
+         for i in hold_info:
+             NewHoldNumber = NewHoldNumber + 1
+
+         hold_info["hold" + str(NewHoldNumber)] = [50, 550, Size, Color, HoldType]
+         num_holds["hold" + str(NewHoldNumber)] = [amount]
+         print (hold_info)
+         print(num_holds)
+
+        else:
+         print("error")
+        
+    else:
+        num_holds[Hold] = int(num_holds[Hold]) + int(amount)
+        print(num_holds)
+    
+
+def RemoveInventory():
+    global HoldBox
+    amount = InventoryText.get("1.0", "end-1c")
+    Hold = HoldBox.get()
+    if Hold in num_holds:
+        num_holds[Hold] = int(num_holds[Hold]) - int(amount)
+        if num_holds[Hold] <= 0:
+            del hold_info[Hold]
+            del num_holds[Hold]
+    print(num_holds)
 
 
 def ClearInventory():
@@ -95,11 +150,14 @@ def ClearInventory():
 
 
 def SaveInventory():
-    global InventoryLabel, Inventory
+    global InventoryLabel, Inventory, hold_info
     with open(FilePath, 'w') as f:
         json.dump(Inventory, f, indent = 4)
+        json.dump(hold_info, f, indent = 4 )
+
     InventoryLabel.config(text = "Inventory: " + str(Inventory))
     print(Inventory)
+
 
 if __name__ == "__main__":
     TkinterUI()
