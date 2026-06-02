@@ -10,10 +10,9 @@ def TkinterUI():
     from main import PyGame
     global root, FilePath, Inventory, hold_info, num_holds
 
-    Inventory = {}
-
     num_holds = {}
     hold_info = {}
+    Inventory = {}
 
     ScriptDir = os.path.dirname(os.path.abspath(__file__))
     FilePath = os.path.join(ScriptDir, "Inventory.json")
@@ -22,14 +21,12 @@ def TkinterUI():
         try:
             with open(FilePath, 'r') as f:
                 Data = json.load(f)
-                if "num_holds" in Data:
-                    num_holds = Data["num_holds"]  
                 if "hold_info" in Data:
-                    hold_info = Data["hold_info"]              
+                    hold_info = Data["hold_info"]   
+                if "Inventory" in Data:
+                    Inventory = Data["Inventory"]           
         except:
             pass
-
-    Inventory = num_holds
 
     root = tk.Tk()
     root.geometry("500x500")
@@ -96,7 +93,7 @@ def InventoryWindow():
 
 
 def AddInventory():
-    global Inventory, InventoryText, ColorText, HoldTypeBox, SizeBox, HoldBox, num_holds
+    global Inventory, InventoryText, ColorText, HoldTypeBox, SizeBox, HoldBox
     amount = InventoryText.get("1.0", "end-1c")
     Color = ColorText.get("1.0", "end-1c")
     HoldType = HoldTypeBox.get()
@@ -107,15 +104,15 @@ def AddInventory():
 
     if Hold == "New":
         if not any(v[2:5] == HoldData for v in hold_info.values()):
-         NewHoldNumber = 1
 
-         for i in hold_info:
-             NewHoldNumber = NewHoldNumber + 1
-
-         hold_info["hold" + str(NewHoldNumber)] = [50, 550, Size, Color, HoldType]
-         num_holds["hold" + str(NewHoldNumber)] = [amount]
+         hold_info[str(Color) + "_" + str(HoldType.lower()) + "_0"] = [50, 550, Size, Color, HoldType]
          print (hold_info)
-         print(num_holds)
+
+         HoldNumber = 0
+         for i in range(int(amount)):
+             Inventory[str(Color) + "_" + str(HoldType.lower()) + "_0_" + str(HoldNumber)] = [50, 550, Size, Color, HoldType, 0]
+             HoldNumber = HoldNumber + 1
+
 
         else:
          print("error")
@@ -139,21 +136,19 @@ def RemoveInventory():
 
 def ClearInventory():
     global Inventory
-    Inventory = {
-        "Hold1" : 0,
-        "Hold2" : 0,
-        "Hold3" : 0,
-        "Hold4" : 0,
-        "Hold5" : 0
-    }
     SaveInventory()
 
 
 def SaveInventory():
     global InventoryLabel, Inventory, hold_info
+
+    data = {
+        "hold_info": hold_info,
+        "Inventory": Inventory
+    }
+
     with open(FilePath, 'w') as f:
-        json.dump(Inventory, f, indent = 4)
-        json.dump(hold_info, f, indent = 4 )
+        json.dump(data, f, indent = 2)
 
     InventoryLabel.config(text = "Inventory: " + str(Inventory))
     print(Inventory)
