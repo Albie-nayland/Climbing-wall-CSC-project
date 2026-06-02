@@ -157,20 +157,21 @@ def wall_1():
 def wall_2():
     global num_holds
 
-    print("hello")
-
     # Dimensions for Wall 2 sub-window
-    WIDTH, HEIGHT = 500, 600
+    WIDTH, HEIGHT = 750, 600
     screen = py.display.set_mode((WIDTH, HEIGHT))
     py.display.set_caption("Pygame Window")
+
+    wall_image = py.image.load("Climbing wall vert 2.png").convert_alpha()
+    wall_image = py.transform.scale(wall_image, (WIDTH + 170, HEIGHT - 80))
 
     hold_change = True
     holding_index = None
     
     # Grid setup parameters identical to Wall 1
-    y_hole_distance = 25
-    x_hole_distance = 25
-    offset = x_hole_distance / 2
+    y_hole_distance = 20
+    x_hole_distance = 20
+    offset = x_hole_distance/2
     wall_spots = []
     
     # Generate background grid positions
@@ -182,7 +183,7 @@ def wall_2():
 
     running = True
     while running:
-        screen.fill("black")
+        screen.blit(wall_image, (0,-1))
         mouse_x, mouse_y = py.mouse.get_pos()
 
         for event in py.event.get():
@@ -224,6 +225,9 @@ def wall_2():
         else:
             hold_change = True
 
+        py.draw.line(screen, "dark green", (WIDTH + 26, 0), (WIDTH-185, HEIGHT), 10)
+        py.draw.line(screen, "dark green", (240, 0), (-135, HEIGHT), 10)
+
         # Draw tray
         py.draw.rect(screen, "gray", py.Rect(0, HEIGHT - 100, WIDTH, 100))
 
@@ -245,9 +249,7 @@ def wall_2():
                 py.draw.circle(screen, colour, (x, y), r)
             Inventory[i][0], Inventory[i][1], Inventory[i][2], Inventory[i][3], Inventory[i][4], Inventory[i][5] = x, y, r, colour, type, wall
 
-        # Draw wall hole grid
-        for spot in wall_spots:
-            py.draw.circle(screen, "red", spot, 2)
+            
 
         py.display.flip()
 
@@ -255,14 +257,17 @@ def wall_2():
 def full_wall():
     mouse_down = False
     
+    
+
     # Large format display layout to accommodate choice pillars
     WIDTH, HEIGHT = 1000, 600
     screen = py.display.set_mode((WIDTH, HEIGHT))
+    
     py.display.set_caption("Pygame Window")
     
     running = True
     while running:
-        screen.fill("black")  
+        
         mouse_x, mouse_y = py.mouse.get_pos()
         
         for event in py.event.get():
