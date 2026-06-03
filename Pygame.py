@@ -53,7 +53,7 @@ def wall_1():
     screen = py.display.set_mode((WIDTH, HEIGHT))
     py.display.set_caption("Slab wall")
 
-    wall_image = py.image.load("Slab wall CSC.png").convert_alpha()
+    wall_image = py.image.load("Climbing-wall-CSC-project\Slab wall CSC.png").convert_alpha()
     wall_image = py.transform.scale(wall_image, (WIDTH + 492, HEIGHT - 95))
 
     hold_change = True
@@ -167,7 +167,7 @@ def wall_2():
     screen = py.display.set_mode((WIDTH, HEIGHT))
     py.display.set_caption("Vertical wall")
 
-    wall_image = py.image.load("Climbing wall vert 2.png").convert_alpha()
+    wall_image = py.image.load("Climbing-wall-CSC-project\Climbing wall vert 2.png").convert_alpha()
     wall_image = py.transform.scale(wall_image, (WIDTH + 170, HEIGHT - 80))
 
     hold_change = True
