@@ -71,7 +71,7 @@ def InventoryWindow():
     SizeBox = ttk.Combobox(InventoryWindow, values = Sizes)
     SizeBox.pack()
 
-    for i in Inventory:
+    for i in hold_info:
         Holds.append(i)
     print(Holds)
 
@@ -105,12 +105,12 @@ def AddInventory():
     if Hold == "New":
         if not any(v[2:5] == HoldData for v in hold_info.values()):
 
-         hold_info[str(Color) + "_" + str(HoldType.lower()) + "_0"] = [50, 550, Size, Color, HoldType]
+         hold_info[str(Color) + "_" + str(HoldType.lower()) + "_0"] = [50, 550, int(Size), Color, HoldType]
          print (hold_info)
 
          HoldNumber = 0
          for i in range(int(amount)):
-             Inventory[str(Color) + "_" + str(HoldType.lower()) + "_0_" + str(HoldNumber)] = [50, 550, Size, Color, HoldType, 0]
+             Inventory[str(Color) + "_" + str(HoldType.lower()) + "_0_" + str(HoldNumber)] = [50, 550, int(Size), Color, HoldType, 0]
              HoldNumber = HoldNumber + 1
 
 
@@ -123,20 +123,23 @@ def AddInventory():
     
 
 def RemoveInventory():
-    global HoldBox
+    global HoldBox, InventoryText
     amount = InventoryText.get("1.0", "end-1c")
     Hold = HoldBox.get()
-    if Hold in num_holds:
-        num_holds[Hold] = int(num_holds[Hold]) - int(amount)
-        if num_holds[Hold] <= 0:
-            del hold_info[Hold]
-            del num_holds[Hold]
-    print(num_holds)
+    if Hold in hold_info:
+        for i in range(int(amount)):
+         Matching = [j for j in Inventory if j.startswith(Hold + "_")]
+         if Matching:
+             del Inventory[Matching[-1]]
+        if not any(j.startswith(Hold + "_") for j in Inventory):
+             del hold_info[Hold]
+    print(Inventory)
 
 
 def ClearInventory():
-    global Inventory
-    SaveInventory()
+    global Inventory, hold_info
+    hold_info = {}
+    Inventory = {}
 
 
 def SaveInventory():
